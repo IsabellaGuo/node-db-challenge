@@ -1,8 +1,10 @@
 
 exports.up = function(knex) {
-    return knex.schema
+	return knex.schema
+	//-------projects table--------
 		.createTable("projects", tbl => {
-			tbl.increments().notNullable(); // create column named "id", primary key, auto-incrementing
+			tbl.increments().notNullable(); // primary key
+
 			tbl.text("name")
 				.notNullable()
 				.unique();
@@ -11,16 +13,18 @@ exports.up = function(knex) {
 				.notNullable()
 				.defaultTo(false);
 		})
+    //--------resources table----------
 		.createTable("resources", tbl => {
-			tbl.increments().notNullable(); // create column named "id", primary key, auto-incrementing
+			tbl.increments().notNullable(); // primary key
+
 			tbl.text("name")
 				.notNullable()
 				.unique();
 			tbl.string("description");
 		})
+	//-------project resource table----------
 		.createTable("projects_resources", tbl => {
-			// tbl.increments().notNullable(); // create column named "id", primary key, auto-incrementing
-			// tbl.string("step", 250).notNullable();
+			
 
 			tbl.integer("project_id")
 				.notNullable()
@@ -38,8 +42,9 @@ exports.up = function(knex) {
 
 			tbl.primary(["project_id", "resource_id"]);
 		})
+	//-----------tasks table---------------
 		.createTable("tasks", tbl => {
-			tbl.increments().notNullable(); // create column named "id", primary key, auto-incrementing
+			tbl.increments().notNullable(); // primary key
 
 			tbl.string("description").notNullable();
 			tbl.string("notes");
